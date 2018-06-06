@@ -13,12 +13,15 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.0.0/dist/browser/signalr.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/msgpack5@4.2.0/dist/msgpack5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr-protocol-msgpack@1.0.0/dist/browser/signalr-protocol-msgpack.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
         <script>
             (async function() {
             const connection = new signalR.HubConnectionBuilder()
                                 .withUrl("/app")
+                                .withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol())
                                 .build();
                 const app = new Vue({
                     el: "#app", 
