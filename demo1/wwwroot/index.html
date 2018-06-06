@@ -28,7 +28,7 @@
                     },
                     methods: {
                         async addMessage() {
-                            await connection.invoke("Send", this.newMessage);
+                            await connection.invoke("Send", {Message: this.newMessage});
                             this.newMessage = null;
                         }
                     }
