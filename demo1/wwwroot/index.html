@@ -2,8 +2,15 @@
 <html>
     <body>
         <div id="app">
+            <h2>Hub API</h2>
             <form v-on:submit.prevent="addMessage">
                 <input type="text" v-model="newMessage" />
+                <input type="submit" value="Send" />
+            </form>
+
+            <h2>REST API</h2>
+            <form v-on:submit.prevent="addRestMessage">
+                <input type="text" v-model="newRestMessage" />
                 <input type="submit" value="Send" />
             </form>
 
@@ -27,12 +34,23 @@
                     el: "#app", 
                     data: {
                         messages:[],
-                        newMessage: null
+                        newMessage: null,
+                        newRestMessage: null
                     },
                     methods: {
                         async addMessage() {
                             await connection.invoke("Send", {Message: this.newMessage});
                             this.newMessage = null;
+                        },
+                        async addRestMessage() {
+                            await fetch("/message", {
+                                method: "post",
+                                body: JSON.stringify({ Message: this.newRestMessage}),
+                                headers: {
+                                    "content-type" : "application/json"
+                                }
+                            });
+                            this.newRestMessage = null;
                         }
                     }
                 })
