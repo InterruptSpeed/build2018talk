@@ -14,6 +14,12 @@
                 <input type="submit" value="Send" />
             </form>
 
+            <h2>Stream API</h2>
+            <form v-on:submit.prevent="countDown">
+                <input type="number" v-model="number" />
+                <input type="submit" value="Send" />
+            </form>
+
             <ul>
                 <li v-for="message in messages">{{ message }}</li>
             </ul>
@@ -35,7 +41,8 @@
                     data: {
                         messages:[],
                         newMessage: null,
-                        newRestMessage: null
+                        newRestMessage: null,
+                        number: null
                     },
                     methods: {
                         async addMessage() {
@@ -51,7 +58,16 @@
                                 }
                             });
                             this.newRestMessage = null;
-                        }
+                        },
+                        async countDown() {
+                            var stream = connection.stream("CountDown", parseInt(this.number));
+                            stream.subscribe({
+                                next(item) {
+                                    app.messages.push(item);
+                                }
+                            });
+                            this.number = null;
+                        },
                     }
                 })
 
