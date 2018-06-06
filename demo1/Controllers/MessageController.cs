@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
-namespace demo1 {
+namespace build2018talk.demo1 {
     [ApiController]
     public class MessageController : ControllerBase {
         private readonly IHubContext<ApplicationHub> _hubContext;
